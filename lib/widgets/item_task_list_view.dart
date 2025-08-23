@@ -46,6 +46,10 @@ class ItemTaskListView extends StatelessWidget {
                               decoration: task.isDone
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
+                              color: task.isDone
+                                  ? const Color(0xffC6C6C6)
+                                  : Colors.white,
+                              decorationColor: Color(0xffC6C6C6),
                             ),
                       ),
                       if (!task.isDone)
