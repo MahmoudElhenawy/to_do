@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
+import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
 import 'package:to_do_app/widgets/item_task_list_view.dart';
-import '../provider/task_provider.dart';
 
 class TaskViewBody extends StatelessWidget {
   const TaskViewBody({super.key, required this.userName});
   final String userName;
+
   @override
   Widget build(BuildContext context) {
-    final taskProvider = context.watch<TaskProvider>();
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton.extended(
@@ -56,6 +55,7 @@ class TaskViewBody extends StatelessWidget {
 
               const SizedBox(height: 20),
 
+              /// --- Greeting ---
               ListTile(
                 title: Text(
                   'Yuhuu ,Your work Is',
@@ -92,7 +92,19 @@ class TaskViewBody extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              Expanded(child: ItemTaskListView(taskProvider: taskProvider)),
+              /// --- Task List ---
+              Expanded(
+                child: BlocBuilder<TaskCubit, TaskState>(
+                  builder: (context, state) {
+                    if (state.tasksList.isEmpty) {
+                      return const Center(
+                        child: Text('No tasks yet. Add one!'),
+                      );
+                    }
+                    return ItemTaskListView(tasks: state.tasksList);
+                  },
+                ),
+              ),
             ],
           ),
         ),

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:to_do_app/provider/task_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
+import 'package:to_do_app/model/task_model.dart';
 import 'package:to_do_app/views/add_task_view.dart';
 import 'package:to_do_app/views/home_view.dart';
 import 'package:to_do_app/views/welcame_view.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(create: (_) => TaskProvider(), child: ToDo()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(TaskModelAdapter());
+  await Hive.openBox<TaskModel>('tasks');
+  runApp(BlocProvider(create: (_) => TaskCubit(), child: const ToDo()));
 }
 
 class ToDo extends StatelessWidget {
@@ -29,7 +37,7 @@ class ToDo extends StatelessWidget {
           titleTextStyle: TextStyle(fontSize: 20),
         ),
         scaffoldBackgroundColor: Colors.black,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w400,

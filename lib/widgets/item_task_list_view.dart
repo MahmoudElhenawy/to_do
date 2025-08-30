@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:to_do_app/provider/task_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
+import 'package:to_do_app/model/task_model.dart';
 
 class ItemTaskListView extends StatelessWidget {
-  const ItemTaskListView({super.key, required this.taskProvider});
-
-  final TaskProvider taskProvider;
+  final List<TaskModel> tasks; // بنستقبل اللستة من TaskViewBody
+  const ItemTaskListView({super.key, required this.tasks});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: taskProvider.tasks.length,
+      itemCount: tasks.length,
       itemBuilder: (context, index) {
-        final task = taskProvider.tasks[index];
+        final task = tasks[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Container(
@@ -28,8 +28,8 @@ class ItemTaskListView extends StatelessWidget {
                   checkColor: Colors.white,
                   activeColor: Colors.green,
                   value: task.isDone,
-                  onChanged: (value) {
-                    context.read<TaskProvider>().toggleTaskDone(index);
+                  onChanged: (_) {
+                    context.read<TaskCubit>().toggleTaskDone(index);
                   },
                 ),
                 const SizedBox(width: 8),
@@ -49,7 +49,7 @@ class ItemTaskListView extends StatelessWidget {
                               color: task.isDone
                                   ? const Color(0xffC6C6C6)
                                   : Colors.white,
-                              decorationColor: Color(0xffC6C6C6),
+                              decorationColor: const Color(0xffC6C6C6),
                             ),
                       ),
                       if (!task.isDone)

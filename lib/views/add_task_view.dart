@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
 import 'package:to_do_app/model/task_model.dart';
-import 'package:to_do_app/provider/task_provider.dart';
 import 'package:to_do_app/widgets/custom_elevated_button.dart';
 import 'package:to_do_app/widgets/custom_switch.dart';
 import 'package:to_do_app/widgets/custom_text_field.dart';
 
 class AddTask extends StatelessWidget {
   AddTask({super.key});
+
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescriptionController =
       TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,21 +56,20 @@ class AddTask extends StatelessWidget {
                 ),
               ),
               CustomElevatedButton(
-                text: 'add task',
+                text: 'Add Task',
                 icon: Icons.add,
                 onPressed: () {
                   final taskName = taskNameController.text;
                   final taskDescription = taskDescriptionController.text;
 
                   if (taskName.isNotEmpty && taskDescription.isNotEmpty) {
-                    Provider.of<TaskProvider>(context, listen: false).addTask(
-                      Task(description: taskDescription, title: taskName),
+                    context.read<TaskCubit>().addTask(
+                      TaskModel(title: taskName, description: taskDescription),
                     );
                     Navigator.pop(context);
                   }
                 },
               ),
-
               const SizedBox(height: 16),
             ],
           ),
