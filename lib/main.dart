@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
+import 'package:to_do_app/cubit/task/task_cubit.dart';
 import 'package:to_do_app/cubit/theme/theme_cubit.dart';
+import 'package:to_do_app/cubit/user/user_cubit.dart';
 import 'package:to_do_app/model/task_model.dart';
+import 'package:to_do_app/model/user_model.dart';
 import 'package:to_do_app/theme/theme_data_dark.dart';
 import 'package:to_do_app/theme/theme_data_white.dart';
 import 'package:to_do_app/views/add_task_view.dart';
@@ -18,7 +20,9 @@ void main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(TaskModelAdapter());
+  Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox<TaskModel>('tasks');
+  await Hive.openBox<UserModel>('userBox');
 
   runApp(const ToDo());
 }
@@ -32,6 +36,7 @@ class ToDo extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => TaskCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => UserCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

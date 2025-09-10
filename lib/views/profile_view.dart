@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/cubit/theme/theme_cubit.dart';
+import 'package:to_do_app/cubit/user/user_cubit.dart';
+import 'package:to_do_app/model/user_model.dart';
 import 'package:to_do_app/widgets/custom_switch.dart';
 import 'package:to_do_app/widgets/profile_info.dart';
 
@@ -14,7 +16,6 @@ class ProfileView extends StatelessWidget {
         title: const Text('My Profile', style: TextStyle(fontSize: 20)),
       ),
       body: SingleChildScrollView(
-        // 👈 علشان يمنع الـ overflow
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +31,7 @@ class ProfileView extends StatelessWidget {
                   right: 0,
                   child: CircleAvatar(
                     radius: 17,
-                    backgroundColor: const Color(0xff181818),
+                    backgroundColor: Color(0xff181818),
                     child: Image.asset(
                       'assets/camera.png',
                       width: 20,
@@ -41,21 +42,32 @@ class ProfileView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Text(
-              'mahmoud elhenawy',
-              style: Theme.of(
-                context,
-              ).textTheme.displayLarge?.copyWith(color: Colors.white),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'One task at a time. One step closer.',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-            ),
-            const SizedBox(height: 32),
 
+            /// 👇 BlocBuilder علشان نعرض بيانات اليوزر
+            BlocBuilder<UserCubit, UserModel?>(
+              builder: (context, user) {
+                return Column(
+                  children: [
+                    Text(
+                      user?.username ?? "Guest",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.displayLarge?.copyWith(color: Colors.white),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user?.quote ?? "No motivation yet",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                );
+              },
+            ),
+
+            const SizedBox(height: 32),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -65,7 +77,6 @@ class ProfileView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Profile Items
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/userDetails');

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
+import 'package:to_do_app/cubit/task/task_cubit.dart';
 import 'package:to_do_app/widgets/item_task.dart';
 
 class TaskViewBody extends StatelessWidget {

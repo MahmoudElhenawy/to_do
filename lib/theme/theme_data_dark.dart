@@ -16,7 +16,6 @@ ThemeData getThemeDataDark() {
     ),
     scaffoldBackgroundColor: AppColorDark.appColor,
 
-    // ✅ text theme
     textTheme: const TextTheme(
       displayLarge: TextStyle(
         fontWeight: FontWeight.w400,
@@ -42,7 +41,6 @@ ThemeData getThemeDataDark() {
       ),
     ),
 
-    // ✅ TextField style
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: const Color(0xFF282828),
