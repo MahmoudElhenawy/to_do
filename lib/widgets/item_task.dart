@@ -4,7 +4,7 @@ import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
 import 'package:to_do_app/model/task_model.dart';
 
 class ItemTaskListView extends StatelessWidget {
-  final List<TaskModel> tasks; // بنستقبل اللستة من TaskViewBody
+  final List<TaskModel> tasks;
   const ItemTaskListView({super.key, required this.tasks});
 
   @override
@@ -61,11 +61,16 @@ class ItemTaskListView extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    context.read<TaskCubit>().deleteTask(index);
+                PopupMenuButton<String>(
+                  onSelected: (value) {
+                    if (value == 'delete') {
+                      context.read<TaskCubit>().deleteTask(index);
+                    }
                   },
-                  icon: const Icon(Icons.more_vert),
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(value: 'delete', child: Text('Delete')),
+                  ],
+                  icon: const Icon(Icons.more_vert, color: Colors.white),
                 ),
               ],
             ),

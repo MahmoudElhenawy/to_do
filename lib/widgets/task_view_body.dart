@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
-import 'package:to_do_app/widgets/item_task_list_view.dart';
+import 'package:to_do_app/widgets/item_task.dart';
 
 class TaskViewBody extends StatelessWidget {
   const TaskViewBody({super.key, required this.userName});
@@ -43,7 +43,7 @@ class TaskViewBody extends StatelessWidget {
                 subtitle: Text(
                   'One task at a time. One step closer.',
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: const Color(0xffC6C6C6),
+                    color: Theme.of(context).cardColor,
                   ),
                 ),
                 trailing: SizedBox(

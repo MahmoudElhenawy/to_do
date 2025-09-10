@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
-  final ValueChanged<bool>? onChanged; // callback لما تتغير الحالة
-  final bool initialValue; // القيمة الابتدائية
+  final ValueChanged<bool>? onChanged;
+  final bool value;
 
-  const CustomSwitch({
-    super.key,
-    this.onChanged,
-    this.initialValue = false, // الافتراضي false
-  });
+  const CustomSwitch({super.key, this.onChanged, this.value = false});
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();
@@ -20,7 +16,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
   @override
   void initState() {
     super.initState();
-    isActive = widget.initialValue; // يبدأ بالقيمة اللي جاية من بره
+    isActive = widget.value;
   }
 
   @override
@@ -31,9 +27,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
         setState(() {
           isActive = value;
         });
-        if (widget.onChanged != null) {
-          widget.onChanged!(value); // استدعاء الأكشن اللي جاي من بره
-        }
+        widget.onChanged?.call(value);
       },
       activeColor: Colors.white,
       activeTrackColor: Colors.green,
