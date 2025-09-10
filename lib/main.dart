@@ -6,6 +6,7 @@ import 'package:to_do_app/cubit/taskcubit/task_cubit.dart';
 import 'package:to_do_app/model/task_model.dart';
 import 'package:to_do_app/views/add_task_view.dart';
 import 'package:to_do_app/views/home_view.dart';
+import 'package:to_do_app/views/splash_view.dart';
 import 'package:to_do_app/views/welcame_view.dart';
 
 void main() async {
@@ -26,8 +27,9 @@ class ToDo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        "/": (context) => WelcomeView(),
-        "/tsks": (context) => TasksView(),
+        "/": (context) => SplashView(),
+        "/welcomeView": (context) => WelcomeView(),
+        "/tasks": (context) => TasksView(),
         "/add": (context) => AddTask(),
       },
       theme: ThemeData(

@@ -72,7 +72,7 @@ class WelcomeView extends StatelessWidget {
                       if (_formKey.currentState!.validate()) {
                         Navigator.pushNamed(
                           context,
-                          '/tsks',
+                          '/tasks',
                           arguments: _nameController.text,
                         );
                       }
