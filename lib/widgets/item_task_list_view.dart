@@ -61,6 +61,12 @@ class ItemTaskListView extends StatelessWidget {
                     ],
                   ),
                 ),
+                IconButton(
+                  onPressed: () {
+                    context.read<TaskCubit>().deleteTask(index);
+                  },
+                  icon: const Icon(Icons.more_vert),
+                ),
               ],
             ),
           ),

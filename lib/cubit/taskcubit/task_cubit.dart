@@ -23,6 +23,13 @@ class TaskCubit extends Cubit<TaskState> {
     emit(UpdatedTaskState(updatedTasks));
   }
 
+  void deleteTask(int index) {
+    final taskKey = taskBox.keyAt(index);
+    taskBox.delete(taskKey);
+    final updatedTasks = taskBox.values.toList();
+    emit(UpdatedTaskState(updatedTasks));
+  }
+
   /// تغيير حالة Done
   void toggleTaskDone(int index) {
     final taskKey = taskBox.keyAt(index);
