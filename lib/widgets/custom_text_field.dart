@@ -37,12 +37,14 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           maxLines: maxLines,
           minLines: minLines,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Theme.of(context).cardColor),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.white54),
+            hintStyle: const TextStyle(color: Colors.grey),
             filled: true,
-            fillColor: const Color(0xFF282828),
+            fillColor:
+                Theme.of(context).inputDecorationTheme.fillColor ??
+                Colors.grey[900],
             border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0)),
               borderSide: BorderSide(color: Colors.black),

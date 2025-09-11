@@ -3,7 +3,8 @@ import 'package:to_do_app/utils/app_color_dark.dart';
 
 ThemeData getThemeDataDark() {
   return ThemeData(
-    cardColor: const Color(0xff282828),
+    cardColor: const Color(0xffF6F7F9),
+    primaryColor: const Color(0xff282828),
     iconTheme: const IconThemeData(color: AppColorDark.fontColor),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColorDark.appColor,

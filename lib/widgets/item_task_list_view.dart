@@ -19,7 +19,7 @@ class ItemTaskListView extends StatelessWidget {
             width: double.infinity,
             height: 56,
             decoration: BoxDecoration(
-              color: const Color(0xff282828),
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -48,15 +48,17 @@ class ItemTaskListView extends StatelessWidget {
                                   : TextDecoration.none,
                               color: task.isDone
                                   ? const Color(0xffC6C6C6)
-                                  : Colors.white,
+                                  : Theme.of(context).iconTheme.color,
                               decorationColor: const Color(0xffC6C6C6),
                             ),
                       ),
                       if (!task.isDone)
                         Text(
                           task.description,
-                          style: Theme.of(context).textTheme.displaySmall
-                              ?.copyWith(color: const Color(0xffC6C6C6)),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                         ),
                     ],
                   ),
@@ -70,7 +72,10 @@ class ItemTaskListView extends StatelessWidget {
                   itemBuilder: (context) => [
                     const PopupMenuItem(value: 'delete', child: Text('Delete')),
                   ],
-                  icon: const Icon(Icons.more_vert, color: Colors.white),
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Theme.of(context).cardColor,
+                  ),
                 ),
               ],
             ),

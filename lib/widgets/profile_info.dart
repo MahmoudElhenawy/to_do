@@ -17,7 +17,12 @@ class ProfileInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(imagePath, width: 32, height: 32),
+        SvgPicture.asset(
+          imagePath,
+          width: 32,
+          height: 32,
+          color: Theme.of(context).iconTheme.color,
+        ),
         const SizedBox(width: 16),
         Text(title, style: Theme.of(context).textTheme.displaySmall),
         const Spacer(),

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/cubit/task/task_cubit.dart';
-import 'package:to_do_app/widgets/item_task.dart';
+import 'package:to_do_app/widgets/item_task_list_view.dart';
 
 class TaskViewBody extends StatelessWidget {
   const TaskViewBody({super.key, required this.userName});
   final String userName;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +18,9 @@ class TaskViewBody extends StatelessWidget {
         icon: const Icon(Icons.add),
         label: Text(
           'Add New Task',
-          style: Theme.of(context).textTheme.displaySmall,
+          style: Theme.of(
+            context,
+          ).textTheme.displaySmall?.copyWith(color: Colors.white),
         ),
       ),
       body: SafeArea(
@@ -52,10 +53,7 @@ class TaskViewBody extends StatelessWidget {
                   child: SvgPicture.asset('assets/Light.svg'),
                 ),
               ),
-
               const SizedBox(height: 20),
-
-              /// --- Greeting ---
               ListTile(
                 title: Text(
                   'Yuhuu ,Your work Is',
@@ -89,10 +87,7 @@ class TaskViewBody extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
-
-              /// --- Task List ---
               Expanded(
                 child: BlocBuilder<TaskCubit, TaskState>(
                   builder: (context, state) {

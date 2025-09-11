@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/cubit/task/task_cubit.dart';
-import 'package:to_do_app/widgets/item_task.dart';
+import 'package:to_do_app/widgets/item_task_list_view.dart';
 
 class CompletedTasksView extends StatelessWidget {
   const CompletedTasksView({super.key});

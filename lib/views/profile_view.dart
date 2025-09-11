@@ -43,23 +43,22 @@ class ProfileView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            /// 👇 BlocBuilder علشان نعرض بيانات اليوزر
             BlocBuilder<UserCubit, UserModel?>(
               builder: (context, user) {
                 return Column(
                   children: [
                     Text(
                       user?.username ?? "Guest",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.displayLarge?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       user?.quote ?? "No motivation yet",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -84,13 +83,17 @@ class ProfileView extends StatelessWidget {
               child: ProfileInfo(
                 imagePath: 'assets/prof.svg',
                 title: 'User Details',
-                trailing: const Icon(
+                trailing: Icon(
                   Icons.arrow_forward_outlined,
-                  color: Colors.white,
+                  color: Theme.of(context).iconTheme.color,
                 ),
               ),
             ),
-            const Divider(color: Colors.white54, thickness: 1, height: 32),
+            Divider(
+              color: Theme.of(context).iconTheme.color,
+              thickness: 1,
+              height: 32,
+            ),
 
             ProfileInfo(
               imagePath: 'assets/Leading element.svg',
@@ -102,14 +105,17 @@ class ProfileView extends StatelessWidget {
                 },
               ),
             ),
-            const Divider(color: Colors.white54, thickness: 1, height: 32),
-
+            Divider(
+              color: Theme.of(context).iconTheme.color,
+              thickness: 1,
+              height: 32,
+            ),
             ProfileInfo(
               imagePath: 'assets/logout.svg',
               title: 'Log Out',
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_outlined,
-                color: Colors.white,
+                color: Theme.of(context).iconTheme.color,
               ),
             ),
           ],

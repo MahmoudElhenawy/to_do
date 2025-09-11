@@ -3,8 +3,8 @@ import 'package:to_do_app/utils/app_color_light.dart';
 
 ThemeData getThemeDataLight() {
   return ThemeData(
-    cardColor: Colors.white,
-    primaryColor: Colors.white,
+    cardColor: const Color(0xff282828),
+    primaryColor: const Color(0xffFFFFFF),
     iconTheme: const IconThemeData(color: AppColorLight.fontColor),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColorLight.appColor,
@@ -56,7 +56,7 @@ ThemeData getThemeDataLight() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColorLight.mainColor,
-        foregroundColor: AppColorLight.fontColor,
+        foregroundColor: Colors.white,
         textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
       ),
     ),
