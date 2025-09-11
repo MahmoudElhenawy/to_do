@@ -24,11 +24,15 @@ void main() async {
   await Hive.openBox<TaskModel>('tasks');
   await Hive.openBox<UserModel>('userBox');
 
-  runApp(const ToDo());
+  final userBox = Hive.box<UserModel>('userBox');
+  final hasUser = userBox.get('currentUser') != null;
+
+  runApp(ToDo(hasUser: hasUser));
 }
 
 class ToDo extends StatelessWidget {
-  const ToDo({super.key});
+  const ToDo({super.key, required this.hasUser});
+  final bool hasUser;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class ToDo extends StatelessWidget {
         builder: (context, themeMode) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: "/",
+            initialRoute: hasUser ? "/tasks" : "/welcomeView",
             routes: {
               "/": (context) => SplashView(),
               "/welcomeView": (context) => WelcomeView(),

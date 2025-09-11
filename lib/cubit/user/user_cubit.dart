@@ -9,15 +9,15 @@ class UserCubit extends Cubit<UserModel?> {
 
   void _loadUser() async {
     final box = Hive.box<UserModel>('userBox');
-    if (box.isNotEmpty) {
-      emit(box.getAt(0));
+    final user = box.get('currentUser');
+    if (user != null) {
+      emit(user);
     }
   }
 
   void saveUser(UserModel user) async {
     final box = Hive.box<UserModel>('userBox');
-    await box.clear();
-    await box.add(user);
+    await box.put('currentUser', user);
     emit(user);
   }
 }

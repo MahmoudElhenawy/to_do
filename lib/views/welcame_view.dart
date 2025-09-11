@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:to_do_app/cubit/user/user_cubit.dart';
+import 'package:to_do_app/model/user_model.dart';
 import 'package:to_do_app/widgets/custom_app_bar.dart';
-
 import 'package:to_do_app/widgets/custom_elevated_button.dart';
 import 'package:to_do_app/widgets/custom_text_field.dart';
 
@@ -70,11 +72,13 @@ class WelcomeView extends StatelessWidget {
                     text: "Let’s Get Started",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(
-                          context,
-                          '/tasks',
-                          arguments: _nameController.text,
+                        final user = UserModel(
+                          username: _nameController.text,
+                          quote: "Stay productive!",
                         );
+                        context.read<UserCubit>().saveUser(user);
+
+                        Navigator.pushReplacementNamed(context, '/tasks');
                       }
                     },
                   ),

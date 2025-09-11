@@ -6,9 +6,6 @@ class TasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userName =
-        ModalRoute.of(context)!.settings.arguments as String? ?? "User";
-
-    return Scaffold(body: TaskViewBody(userName: userName));
+    return Scaffold(body: TaskViewBody());
   }
 }

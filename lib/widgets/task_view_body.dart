@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/cubit/task/task_cubit.dart';
+import 'package:to_do_app/cubit/user/user_cubit.dart';
+import 'package:to_do_app/model/user_model.dart';
 import 'package:to_do_app/widgets/item_task_list_view.dart';
+import 'package:to_do_app/widgets/list_tile_of_detiles.dart';
 
 class TaskViewBody extends StatelessWidget {
-  const TaskViewBody({super.key, required this.userName});
-  final String userName;
+  const TaskViewBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,30 +31,11 @@ class TaskViewBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              ListTile(
-                leading: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: CircleAvatar(
-                    radius: 100,
-                    child: Image.asset('assets/Thumbnail.png'),
-                  ),
-                ),
-                title: Text(
-                  'Good Evening, $userName',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                subtitle: Text(
-                  'One task at a time. One step closer.',
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: Theme.of(context).cardColor,
-                  ),
-                ),
-                trailing: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: SvgPicture.asset('assets/Light.svg'),
-                ),
+              BlocBuilder<UserCubit, UserModel?>(
+                builder: (context, user) {
+                  final username = user?.username ?? 'Guest';
+                  return ListTileOfDetiles(username: username);
+                },
               ),
               const SizedBox(height: 20),
               ListTile(
@@ -74,9 +58,7 @@ class TaskViewBody extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 20),
-
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
