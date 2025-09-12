@@ -40,7 +40,7 @@ class ToDo extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => TaskCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
-        BlocProvider(create: (_) => UserCubit()),
+        BlocProvider(create: (_) => UserCubit()..loadUser()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

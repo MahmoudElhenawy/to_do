@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:to_do_app/cubit/theme/theme_cubit.dart';
 import 'package:to_do_app/cubit/user/user_cubit.dart';
 import 'package:to_do_app/model/user_model.dart';
@@ -8,6 +10,17 @@ import 'package:to_do_app/widgets/profile_info.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
+
+  Future<void> _pickImage(BuildContext context) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      context.read<UserCubit>().updateUserImage(pickedFile.path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +33,36 @@ class ProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/Thumbnail.png'),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 17,
-                    backgroundColor: Color(0xff181818),
-                    child: Image.asset(
-                      'assets/camera.png',
-                      width: 20,
-                      height: 20,
+            BlocBuilder<UserCubit, UserModel?>(
+              builder: (context, user) {
+                return Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: user?.imagePath != null
+                          ? FileImage(File(user!.imagePath!))
+                          : const AssetImage('assets/default_avatar.png')
+                                as ImageProvider,
                     ),
-                  ),
-                ),
-              ],
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () => _pickImage(context),
+                        child: CircleAvatar(
+                          radius: 17,
+                          backgroundColor: const Color(0xff181818),
+                          child: Image.asset(
+                            'assets/camera.png',
+                            width: 20,
+                            height: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 12),
 
@@ -110,12 +133,18 @@ class ProfileView extends StatelessWidget {
               thickness: 1,
               height: 32,
             ),
-            ProfileInfo(
-              imagePath: 'assets/logout.svg',
-              title: 'Log Out',
-              trailing: Icon(
-                Icons.arrow_forward_outlined,
-                color: Theme.of(context).iconTheme.color,
+            GestureDetector(
+              onTap: () {
+                context.read<UserCubit>().logout();
+                Navigator.pushReplacementNamed(context, "/welcomeView");
+              },
+              child: ProfileInfo(
+                imagePath: 'assets/logout.svg',
+                title: 'Log Out',
+                trailing: Icon(
+                  Icons.arrow_forward_outlined,
+                  color: Theme.of(context).iconTheme.color,
+                ),
               ),
             ),
           ],

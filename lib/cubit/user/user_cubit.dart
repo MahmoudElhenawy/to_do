@@ -4,20 +4,37 @@ import 'package:to_do_app/model/user_model.dart';
 
 class UserCubit extends Cubit<UserModel?> {
   UserCubit() : super(null) {
-    _loadUser();
+    loadUser();
   }
 
-  void _loadUser() async {
+  void loadUser() {
     final box = Hive.box<UserModel>('userBox');
-    final user = box.get('currentUser');
-    if (user != null) {
-      emit(user);
+    final savedUser = box.get('user');
+    if (savedUser != null) {
+      emit(savedUser);
     }
   }
 
   void saveUser(UserModel user) async {
     final box = Hive.box<UserModel>('userBox');
-    await box.put('currentUser', user);
+    await box.put('user', user);
     emit(user);
+  }
+
+  void updateUserImage(String imagePath) async {
+    final box = Hive.box<UserModel>('userBox');
+
+    if (state != null) {
+      final updatedUser = state!.copyWith(imagePath: imagePath);
+
+      await box.put('user', updatedUser);
+      emit(updatedUser);
+    }
+  }
+
+  void logout() async {
+    final box = Hive.box<UserModel>('userBox');
+    await box.delete('user');
+    emit(null);
   }
 }
