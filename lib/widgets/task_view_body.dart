@@ -34,9 +34,14 @@ class TaskViewBody extends StatelessWidget {
               BlocBuilder<UserCubit, UserModel?>(
                 builder: (context, user) {
                   final username = user?.username ?? 'Guest';
-                  return ListTileOfDetiles(username: username);
+                  final imagePath = user?.imagePath;
+                  return ListTileOfDetiles(
+                    username: username,
+                    imagePath: imagePath,
+                  );
                 },
               ),
+
               const SizedBox(height: 20),
               ListTile(
                 title: Text(
